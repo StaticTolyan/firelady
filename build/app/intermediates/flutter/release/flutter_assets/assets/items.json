@@ -1,0 +1,24 @@
+[
+    {
+      "name": "Item 1",
+      "price": 10.0,
+      "imageUrl": "item1.png",
+      "size": "Medium",
+      "weight": 0.5
+    },
+    {
+      "name": "Item 2",
+      "price": 15.0,
+      "imageUrl": "item2.png",
+      "size": "Large",
+      "weight": 1.0
+    },
+    {
+      "name": "Item 3",
+      "price": 20.0,
+      "imageUrl": "item3.png",
+      "size": "Small",
+      "weight": 0.3
+    }
+  ]
+  
