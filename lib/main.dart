@@ -7,6 +7,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class StorePage extends StatefulWidget {
+  const StorePage({super.key});
+
   @override
   _StorePageState createState() => _StorePageState();
 }
@@ -64,10 +68,10 @@ class _StorePageState extends State<StorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FireLady Store'),
+        title: const Text('FireLady Store'),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (_) => CartPage(
@@ -79,7 +83,7 @@ class _StorePageState extends State<StorePage> {
         ],
       ),
       body: items.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2,
@@ -87,7 +91,7 @@ class _StorePageState extends State<StorePage> {
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.75,
               ),
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index];
@@ -103,21 +107,21 @@ class _StorePageState extends State<StorePage> {
                           item.imageUrl,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) =>
-                              Icon(Icons.image, size: 50),
+                              const Icon(Icons.image, size: 50),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(item.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                             Text('\$${item.price.toStringAsFixed(2)}'),
                             Text(
                                 'Size: ${item.size} - Weight: ${item.weight} kg'),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             ElevatedButton(
                               onPressed: () => showModalBottomSheet(
                                 context: context,
@@ -125,11 +129,11 @@ class _StorePageState extends State<StorePage> {
                                   return StatefulBuilder(
                                     builder: (context, setState) {
                                       return Padding(
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: const EdgeInsets.all(16.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Text('Select Color',
+                                            const Text('Select Color',
                                                 style: TextStyle(fontSize: 18)),
                                             DropdownButton<String>(
                                               value: selectedColor,
@@ -146,27 +150,28 @@ class _StorePageState extends State<StorePage> {
                                                 });
                                               },
                                             ),
-                                            SizedBox(height: 10),
-                                            Text('Quantity',
+                                            const SizedBox(height: 10),
+                                            const Text('Quantity',
                                                 style: TextStyle(fontSize: 18)),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
                                                 IconButton(
-                                                  icon: Icon(Icons.remove),
+                                                  icon: const Icon(Icons.remove),
                                                   onPressed: () {
                                                     setState(() {
-                                                      if (quantity > 1)
+                                                      if (quantity > 1) {
                                                         quantity--;
+                                                      }
                                                     });
                                                   },
                                                 ),
                                                 Text(quantity.toString(),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 18)),
                                                 IconButton(
-                                                  icon: Icon(Icons.add),
+                                                  icon: const Icon(Icons.add),
                                                   onPressed: () {
                                                     setState(() {
                                                       quantity++;
@@ -175,14 +180,14 @@ class _StorePageState extends State<StorePage> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 10),
+                                            const SizedBox(height: 10),
                                             ElevatedButton(
                                               onPressed: () {
                                                 addToCart(item, selectedColor,
                                                     quantity);
                                                 Navigator.pop(context);
                                               },
-                                              child: Text('Add to Cart'),
+                                              child: const Text('Add to Cart'),
                                             ),
                                           ],
                                         ),
@@ -191,7 +196,7 @@ class _StorePageState extends State<StorePage> {
                                   );
                                 },
                               ),
-                              child: Text('Add to Cart'),
+                              child: const Text('Add to Cart'),
                             ),
                           ],
                         ),
@@ -210,7 +215,7 @@ class CartPage extends StatelessWidget {
   final double totalPrice;
   final Function(CartItem) removeFromCart;
 
-  CartPage({
+  const CartPage({super.key, 
     required this.cart,
     required this.totalPrice,
     required this.removeFromCart,
@@ -219,14 +224,14 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Cart', style: TextStyle(fontSize: 24)),
-          SizedBox(height: 10),
+          const Text('Cart', style: TextStyle(fontSize: 24)),
+          const SizedBox(height: 10),
           if (cart.isEmpty)
-            Text('Your cart is empty')
+            const Text('Your cart is empty')
           else
             Column(
               children: cart.map((cartItem) {
@@ -235,25 +240,25 @@ class CartPage extends StatelessWidget {
                       width: 50,
                       height: 50,
                       errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.image)),
+                          const Icon(Icons.image)),
                   title: Text(cartItem.item.name),
                   subtitle: Text(
                       'Color: ${cartItem.color} - Quantity: ${cartItem.quantity} - Size: ${cartItem.item.size} - Weight: ${cartItem.item.weight} kg - \$${(cartItem.item.price * cartItem.quantity).toStringAsFixed(2)}'),
                   trailing: IconButton(
-                    icon: Icon(Icons.remove_circle),
+                    icon: const Icon(Icons.remove_circle),
                     onPressed: () => removeFromCart(cartItem),
                   ),
                 );
               }).toList(),
             ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text('Total: \$${totalPrice.toStringAsFixed(2)}'),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               // Handle checkout
             },
-            child: Text('Checkout'),
+            child: const Text('Checkout'),
           ),
         ],
       ),
